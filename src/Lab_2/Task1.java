@@ -22,10 +22,10 @@ public class Task1 {
     public static void main(String[] args) {
         final int VOLUME = 300;
 
-        final int   FUEL_PER_KM_IF_CARGO_LESS_500   = 1;
-        final int   FUEL_PER_KM_IF_CARGO_LESS_1000  = 4;
-        final int   FUEL_PER_KM_IF_CARGO_LESS_1500  = 7;
-        final int   FUEL_PER_KM_IF_CARGO_LESS_2000  = 9;
+        final int FUEL_PER_KM_IF_CARGO_LESS_500 = 1;
+        final int FUEL_PER_KM_IF_CARGO_LESS_1000 = 4;
+        final int FUEL_PER_KM_IF_CARGO_LESS_1500 = 7;
+        final int FUEL_PER_KM_IF_CARGO_LESS_2000 = 9;
 
         int distance1, distance2, cargoWeight;
 
@@ -37,9 +37,8 @@ public class Task1 {
         System.out.print("Вес груза (в килограммах): ");
         cargoWeight = scanner.nextInt();
 
-        if (cargoWeight > 2000) {
+        if (cargoWeight > 2000)
             System.out.println("ERROR");
-        }
         else if (cargoWeight <= 500)
             System.out.println(distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_500, VOLUME));
         else if (cargoWeight > 500 && cargoWeight <= 1000)
