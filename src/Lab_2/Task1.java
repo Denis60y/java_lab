@@ -1,6 +1,8 @@
 package Lab_2;
 
-import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class Task1 {
     public static String distance(int A, int B, int fuel, int volume) {
@@ -20,32 +22,72 @@ public class Task1 {
     }
 
     public static void main(String[] args) {
-        final int VOLUME = 300;
+        SimpleGUI app = new SimpleGUI();
+        app.setVisible(true);
+    }
+}
 
-        final int FUEL_PER_KM_IF_CARGO_LESS_500 = 1;
-        final int FUEL_PER_KM_IF_CARGO_LESS_1000 = 4;
-        final int FUEL_PER_KM_IF_CARGO_LESS_1500 = 7;
-        final int FUEL_PER_KM_IF_CARGO_LESS_2000 = 9;
+class SimpleGUI extends JFrame {
+    private  JButton button = new JButton("Расчёт");
+    private  JTextField input1 = new JTextField("", 10);
+    private  JTextField input2 = new JTextField("", 10);
+    private  JTextField input3 = new JTextField("", 10);
+    private  JLabel label1 = new JLabel("Расстояние от пункта A до пункта B (в километрах):");
+    private  JLabel label2 = new JLabel("Расстояние от пункта B до пункта C (в километрах):");
+    private  JLabel label3 = new JLabel("Вес груза (в килограммах):");
 
-        int distance1, distance2, cargoWeight;
+    private final int VOLUME = 300;
+    private final int FUEL_PER_KM_IF_CARGO_LESS_500 = 1;
+    private final int FUEL_PER_KM_IF_CARGO_LESS_1000 = 4;
+    private final int FUEL_PER_KM_IF_CARGO_LESS_1500 = 7;
+    private final int FUEL_PER_KM_IF_CARGO_LESS_2000 = 9;
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Расстояние от пункта A до пункта B (в километрах): ");
-        distance1 = scanner.nextInt();
-        System.out.print("Расстояние от пункта B до пункта C (в километрах): ");
-        distance2 = scanner.nextInt();
-        System.out.print("Вес груза (в килограммах): ");
-        cargoWeight = scanner.nextInt();
+    public SimpleGUI() {
+        super("Доставка груза");
+        this.setBounds(700, 400, 500, 500);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        if (cargoWeight > 2000)
-            System.out.println("ERROR");
-        else if (cargoWeight <= 500)
-            System.out.println(distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_500, VOLUME));
-        else if (cargoWeight > 500 && cargoWeight <= 1000)
-            System.out.println(distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_1000, VOLUME));
-        else if (cargoWeight > 1000 && cargoWeight <= 1500)
-            System.out.println(distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_1500, VOLUME));
-        else
-            System.out.println(distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_2000, VOLUME));
+        Container container = this.getContentPane();
+        container.setLayout(new GridLayout(5, 2, 10, 10));
+        container.add(label1);
+        container.add(input1);
+        container.add(label2);
+        container.add(input2);
+        container.add(label3);
+        container.add(input3);
+
+        button.addActionListener(new ButtonEventListener ());
+        container.add(button);
+    }
+
+    class ButtonEventListener implements ActionListener{
+        public void actionPerformed (ActionEvent e){
+
+            String popa1 = input1.getText();
+            String popa2 = input2.getText();
+            String popa3 = input3.getText();
+            String message = "";
+
+            if (!popa1.equals("") && !popa1.equals("") && !popa1.equals("")){
+                int distance1 = Integer.parseInt(popa1);
+                int distance2 = Integer.parseInt(popa2);
+                int cargoWeight = Integer.parseInt(popa3);
+
+                if (cargoWeight > 2000)
+                    message = "ERROR";
+                else if (cargoWeight <= 500)
+                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_500, VOLUME);
+                else if (cargoWeight > 500 && cargoWeight <= 1000)
+                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_1000, VOLUME);
+                else if (cargoWeight > 1000 && cargoWeight <= 1500)
+                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_1500, VOLUME);
+                else
+                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_2000, VOLUME);
+            }
+            else{
+                message = "ERROR";
+            }
+            JOptionPane.showMessageDialog(null, message, "output", JOptionPane.PLAIN_MESSAGE);
+        }
     }
 }
