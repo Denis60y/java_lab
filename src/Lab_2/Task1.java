@@ -68,7 +68,7 @@ class SimpleGUI extends JFrame {
             String popa3 = input3.getText();
             String message = "";
 
-            if (!popa1.equals("") && !popa1.equals("") && !popa1.equals("")){
+            if (!popa1.equals("") && !popa2.equals("") && !popa3.equals("")){
                 int distance1 = Integer.parseInt(popa1);
                 int distance2 = Integer.parseInt(popa2);
                 int cargoWeight = Integer.parseInt(popa3);
