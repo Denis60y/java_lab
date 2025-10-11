@@ -28,19 +28,17 @@ public class Task1 {
 }
 
 class SimpleGUI extends JFrame {
-    private  JButton button = new JButton("Расчёт");
-    private  JTextField input1 = new JTextField("", 10);
-    private  JTextField input2 = new JTextField("", 10);
-    private  JTextField input3 = new JTextField("", 10);
-    private  JLabel label1 = new JLabel("Расстояние от пункта A до пункта B (в километрах):");
-    private  JLabel label2 = new JLabel("Расстояние от пункта B до пункта C (в километрах):");
-    private  JLabel label3 = new JLabel("Вес груза (в килограммах):");
+    private JButton button = new JButton("Расчёт");
+    private JTextField input1 = new JTextField("", 10);
+    private JTextField input2 = new JTextField("", 10);
+    private JTextField input3 = new JTextField("", 10);
+    private JLabel label1 = new JLabel("Расстояние от пункта A до пункта B (в километрах):");
+    private JLabel label2 = new JLabel("Расстояние от пункта B до пункта C (в километрах):");
+    private JLabel label3 = new JLabel("Вес груза (в килограммах):");
 
     private final int VOLUME = 300;
-    private final int FUEL_PER_KM_IF_CARGO_LESS_500 = 1;
-    private final int FUEL_PER_KM_IF_CARGO_LESS_1000 = 4;
-    private final int FUEL_PER_KM_IF_CARGO_LESS_1500 = 7;
-    private final int FUEL_PER_KM_IF_CARGO_LESS_2000 = 9;
+    private final int[] FUEL_RATES = {1, 4, 7, 9};
+    private final int[] WEIGHT_LIMITS = {500, 1000, 1500, 2000};
 
     public SimpleGUI() {
         super("Доставка груза");
@@ -68,23 +66,19 @@ class SimpleGUI extends JFrame {
             String popa3 = input3.getText();
             String message = "";
 
-            if (!popa1.equals("") && !popa2.equals("") && !popa3.equals("")){
+            if (!popa1.equals("") && !popa2.equals("") && !popa3.equals("")) {
                 int distance1 = Integer.parseInt(popa1);
                 int distance2 = Integer.parseInt(popa2);
                 int cargoWeight = Integer.parseInt(popa3);
+                message = "ERROR";
 
-                if (cargoWeight > 2000)
-                    message = "ERROR";
-                else if (cargoWeight <= 500)
-                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_500, VOLUME);
-                else if (cargoWeight > 500 && cargoWeight <= 1000)
-                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_1000, VOLUME);
-                else if (cargoWeight > 1000 && cargoWeight <= 1500)
-                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_1500, VOLUME);
-                else
-                    message = Task1.distance(distance1, distance2, FUEL_PER_KM_IF_CARGO_LESS_2000, VOLUME);
-            }
-            else{
+                for (int i = 0; i < WEIGHT_LIMITS.length; i++){
+                    if (cargoWeight <= WEIGHT_LIMITS[i]){
+                        message = Task1.distance(distance1, distance2, FUEL_RATES[i], VOLUME);
+                        break;
+                    }
+                }
+            } else {
                 message = "ERROR";
             }
             JOptionPane.showMessageDialog(null, message, "output", JOptionPane.PLAIN_MESSAGE);
