@@ -58,7 +58,7 @@ class SimpleGUI extends JFrame {
         container.add(button);
     }
 
-    class ButtonEventListener implements ActionListener{
+    class ButtonEventListener implements ActionListener {
         public void actionPerformed (ActionEvent e){
 
             String popa1 = input1.getText();
@@ -66,19 +66,24 @@ class SimpleGUI extends JFrame {
             String popa3 = input3.getText();
             String message = "";
 
-            if (!popa1.equals("") && !popa2.equals("") && !popa3.equals("")) {
+            try{
                 int distance1 = Integer.parseInt(popa1);
                 int distance2 = Integer.parseInt(popa2);
                 int cargoWeight = Integer.parseInt(popa3);
-                message = "ERROR";
 
-                for (int i = 0; i < WEIGHT_LIMITS.length; i++){
-                    if (cargoWeight <= WEIGHT_LIMITS[i]){
-                        message = Task1.distance(distance1, distance2, FUEL_RATES[i], VOLUME);
-                        break;
+                if (cargoWeight > 2000 || cargoWeight < 0 || distance1 < 0 || distance2 < 0){
+                    message = "ERROR";
+                }
+                else{
+                    for (int i = 1; i < WEIGHT_LIMITS.length; i++) {
+                        if (cargoWeight <= WEIGHT_LIMITS[i] && cargoWeight > WEIGHT_LIMITS[i-1]){
+                            message = Task1.distance(distance1, distance2, FUEL_RATES[i], VOLUME);
+                            break;
+                        }
                     }
                 }
-            } else {
+            }
+            catch (NumberFormatException ex){
                 message = "ERROR";
             }
             JOptionPane.showMessageDialog(null, message, "output", JOptionPane.PLAIN_MESSAGE);
