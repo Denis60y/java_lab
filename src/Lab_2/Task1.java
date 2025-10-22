@@ -54,36 +54,36 @@ class SimpleGUI extends JFrame {
         container.add(label3);
         container.add(input3);
 
-        button.addActionListener(new ButtonEventListener ());
+        button.addActionListener(new ButtonEventListener());
         container.add(button);
     }
 
     class ButtonEventListener implements ActionListener {
-        public void actionPerformed (ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
 
             String popa1 = input1.getText();
             String popa2 = input2.getText();
             String popa3 = input3.getText();
             String message = "";
+            int fuel = 0;
 
-            try{
+            try {
                 int distance1 = Integer.parseInt(popa1);
                 int distance2 = Integer.parseInt(popa2);
                 int cargoWeight = Integer.parseInt(popa3);
 
-                if (cargoWeight > 2000 || cargoWeight < 0 || distance1 < 0 || distance2 < 0){
+                if (cargoWeight > 2000 || cargoWeight < 0 || distance1 < 0 || distance2 < 0) {
                     message = "ERROR";
-                }
-                else{
-                    for (int i = 1; i < WEIGHT_LIMITS.length; i++) {
-                        if (cargoWeight <= WEIGHT_LIMITS[i] && cargoWeight > WEIGHT_LIMITS[i-1]){
-                            message = Task1.distance(distance1, distance2, FUEL_RATES[i], VOLUME);
-                            break;
+                } else {
+                    for (int i = 0; i < WEIGHT_LIMITS.length; i++) {
+                        if (cargoWeight < WEIGHT_LIMITS[i]) {
+                            fuel = FUEL_RATES[i];
                         }
                     }
+                    message = Task1.distance(distance1, distance2, fuel, VOLUME);
                 }
-            }
-            catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
                 message = "ERROR";
             }
             JOptionPane.showMessageDialog(null, message, "output", JOptionPane.PLAIN_MESSAGE);
