@@ -6,19 +6,15 @@ import javax.swing.*;
 
 public class Task1 {
     public static String distance(int A, int B, int fuel, int volume) {
-        int remainingFuel = volume - A * fuel;
 
         if (remainingFuel < 0)
             return "Топлива не хватит до пункта B!";
 
-        int requiredFuel = (B * fuel) - remainingFuel;
 
         if (requiredFuel > volume)
             return "Емкости бака недостаточно для дозаправки!";
-        else if (requiredFuel <= 0)
             return "Дозаправка не требуется!";
         else
-            return String.format("Требуемый объем топлива %s литров!", requiredFuel);
     }
 
     public static void main(String[] args) {
@@ -38,7 +34,6 @@ class SimpleGUI extends JFrame {
 
     private final int VOLUME = 300;
     private final int[] FUEL_RATES = {1, 4, 7, 9};
-    private final int[] WEIGHT_LIMITS = {500, 1000, 1500, 2000};
 
     public SimpleGUI() {
         super("Доставка груза");
@@ -75,9 +70,6 @@ class SimpleGUI extends JFrame {
                 if (cargoWeight > 2000 || cargoWeight < 0 || distance1 < 0 || distance2 < 0) {
                     message = "ERROR";
                 } else {
-                    for (int i = 0; i < WEIGHT_LIMITS.length; i++) {
-                        if (cargoWeight < WEIGHT_LIMITS[i]) {
-                            fuel = FUEL_RATES[i];
                         }
                     }
                     message = Task1.distance(distance1, distance2, fuel, VOLUME);
