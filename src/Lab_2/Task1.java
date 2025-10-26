@@ -35,15 +35,15 @@ public class Task1 {
 }
 
 class SimpleGUI extends JFrame {
-    private JButton button = new JButton("Расчёт");
-    private JTextField input1 = new JTextField("", 10);
-    private JTextField input2 = new JTextField("", 10);
-    private JTextField input3 = new JTextField("", 10);
-    private JLabel label1 = new JLabel("Расстояние от пункта A до пункта B (в километрах):");
-    private JLabel label2 = new JLabel("Расстояние от пункта B до пункта C (в километрах):");
-    private JLabel label3 = new JLabel("Вес груза (в килограммах):");
+    private JButton     button = new JButton("Расчёт");
+    private JTextField  input1 = new JTextField("", 10);
+    private JTextField  input2 = new JTextField("", 10);
+    private JTextField  input3 = new JTextField("", 10);
+    private JLabel      label1 = new JLabel("Расстояние от пункта A до пункта B (в километрах):");
+    private JLabel      label2 = new JLabel("Расстояние от пункта B до пункта C (в километрах):");
+    private JLabel      label3 = new JLabel("Вес груза (в килограммах):");
 
-    private final int VOLUME = 300;
+    private final int   VOLUME = 300;
     private final int[] FUEL_RATES = {1, 4, 7, 9};
     private final int[] WEIGHT_LIMITS = {0, 500, 1000, 1500, 2000};
 
